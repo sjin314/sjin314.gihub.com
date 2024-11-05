@@ -2,7 +2,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = 3000;
+const port = const PORT = process.env.PORT || 3000;
 
 // public 폴더를 정적 파일 경로로 설정
 app.use(express.static(path.join(__dirname, 'public')));
@@ -13,6 +13,6 @@ app.get('/', (req, res) => {
 });
 
 // 서버 실행
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
