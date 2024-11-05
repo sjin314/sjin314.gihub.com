@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000; // 포트 설정 부분 수정
 
 // public 폴더를 정적 파일 경로로 설정
 app.use(express.static(path.join(__dirname, 'public')));
@@ -12,6 +12,7 @@ app.get('/', (req, res) => {
 });
 
 // 서버 실행
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
+
