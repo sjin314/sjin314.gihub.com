@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>말라리아 문제 홍보 프로젝트</title>
+    <link rel="stylesheet" href="/style.css"> <!-- public 폴더에서 style.css 로드 -->
+    <script src="/script.js" defer></script> <!-- public 폴더에서 script.js 로드 -->
+</head>
+<body>
+
+    <header>
+        <strong>A Campaign To Promote Malaria</strong>
+    </header>
+
+    <div class="flex-container">
+        <div class="container">
+            <h1 onclick="toggleInfo()">말라리아 홍보 프로젝트</h1>
+            <div id="additional-info" class="additional-info" style="display: none;">
+                <h2>'2030년까지 말라리아 전염병 종식'</h2>
+                <p>
+                    이 프로젝트는 UN의 세계의 17가지 해결해야 할 문제 중 하나인 <a href="https://sdgs.un.org/goals/goal3#targets_and_indicators" target="_blank">3.3 By 2030, end the epidemics of AIDS, tuberculosis, malaria and neglected tropical diseases and combat hepatitis, water-borne diseases and other communicable diseases</a>
+                    중 말라리아 문제를 홍보하여 많은 사람들이 이 문제에 관심을 가지는 것을 목표로 하고 있습니다.
+                </p>
+                <h2>말라리아란?</h2>
+                <p>
+                    말라리아는 플라스모디움 속 기생충에 의해 발생하는 감염 질환으로, 주로 아프리카, 동남아시아, 서태평양 지역에서 발생합니다.
+                </p>
+                <h2>'문제 상황'</h2>
+                <p>
+                    현대시대에는 인류역사상 가장 부유한 축에 속하는 시대, 아직도 세계각지에는 말라리아로 고통받는 아이들이 있습니다.
+                    국제적인 이해관계와 내전에 의해 국제기구의 지원이 힘든 상황, 말라리아 문제는 단순히 치료제의 개발만으로 해결될 수 없습니다. 국제 사회와 지역 사회가 함께 이 문제에 관심을 가져야 합니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="large-box">
+            <h2>말라리아에 대한 정보 공유하기</h2>
+            <input type="text" id="post-input" class="post-input" placeholder="여기에 글을 입력하세요." />
+            <button onclick="addPost()">게시하기</button>
+            <div id="post-container" style="margin-top: 15px; overflow-y: auto;"></div>
+        </div>
+    </div>
+
+    <div class="flex-container">
+        <div class="container">
+            <h1>말라리아는 왜 해결이 안되나요? 항말라리아제에 대하여</h1>
+            <p>
+                항말라리아제는 치료제로서 자가항체를 감소시키는 작용을 합니다. 최근 개발된 말라리아 백신은 100% 예방을 보장하지 않으며 여러 회차에 걸쳐 접종이 필요합니다.
+                    <a href="https://link.springer.com/article/10.1186/s12936-024-05123-6" target="_blank">Adjei 등(2024)의 연구 논문</a>이 논문에서는 백신이 말라리아를 감소시키는데 유의미한 결과가 있다고 나오지만 시간이 지나면서 백신의 효용이 떨어져 접종을 계속해서 해 주어야 한다고 보고있습니다.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function toggleInfo() {
+            const info = document.getElementById('additional-info');
+            info.style.display = info.style.display === 'none' || info.style.display === '' ? 'block' : 'none';
+        }
+
+        function addPost() {
+            const input = document.getElementById('post-input');
+            const postContent = input.value.trim();
+            if (postContent) {
+                savePost(postContent);
+                input.value = ''; // 입력 필드 초기화
+            } else {
+                alert("내용을 입력하세요.");
+            }
+        }
+
+        function savePost(content) {
+            const postContainer = document.getElementById('post-container');
+            const newPost = document.createElement('p');
+            newPost.textContent = content;
+            postContainer.appendChild(newPost);
+            updateLocalStorage(); // 로컬 스토리지 업데이트
+        }
+
+        function updateLocalStorage() {
+            const postContainer = document.getElementById('post-container');
+            const posts = Array.from(postContainer.children).map(post => post.textContent);
+            localStorage.setItem('posts', JSON.stringify(posts)); // 게시물 목록을 로컬 스토리지에 저장
+        }
+
+        function loadPosts() {
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const postContainer = document.getElementById('post-container');
+            posts.forEach(post => {
+                const newPost = document.createElement('p');
+                newPost.textContent = post;
+                postContainer.appendChild(newPost);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadPosts); // 페이지가 로드될 때 게시물 불러오기
+    </script>
+
+</body>
+</html>
+
+
