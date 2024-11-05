@@ -1,8 +1,7 @@
-// server.js
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = const PORT = process.env.PORT || 3000;
+const port = PORT = process.env.PORT || 3000;
 
 // public 폴더를 정적 파일 경로로 설정
 app.use(express.static(path.join(__dirname, 'public')));
